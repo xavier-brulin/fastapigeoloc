@@ -81,8 +81,8 @@ docker-compose.override.yml
 **/docker-compose.yml
 
 # Static and templates folders
-static/
-templates/*.pyc
+# static/
+# templates/*.pyc
 
 # Ignore compiled Python files
 *.pyc
