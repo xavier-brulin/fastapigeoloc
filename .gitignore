@@ -77,7 +77,7 @@ dmypy.json
 # Docker
 *.log
 docker-compose.override.yml
-**/Dockerfile
+# **/Dockerfile
 **/docker-compose.yml
 
 # Static and templates folders
