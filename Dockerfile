@@ -13,6 +13,7 @@ RUN pip install --no-cache-dir -r /code/requirements.txt
 # Copy the rest of the working directory contents into the container at /app
 COPY ./app /code/app
 COPY ./static /code/static
+COPY ./templates /code/templates
 
 # Make port 80 available to the world outside this container
 EXPOSE 80
