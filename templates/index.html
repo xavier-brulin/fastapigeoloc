@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Location Form</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@1.0.2/css/bulma.min.css" />
+    <script src="https://unpkg.com/htmx.org@2.0.3"></script>
+    <script>
+      // JavaScript function to get the user's location
+      function getLocation() {
+        if (navigator.geolocation) {
+          navigator.geolocation.getCurrentPosition(showPosition, showError);
+        } else {
+          alert('Geolocation is not supported by this browser.');
+        }
+      }
+
+      // Callback function to handle the geolocation result
+      function showPosition(position) {
+        document.getElementById('latitude').value = position.coords.latitude;
+        document.getElementById('longitude').value = position.coords.longitude;
+      }
+
+      // Error handling for geolocation
+      function showError(error) {
+        switch (error.code) {
+          case error.PERMISSION_DENIED:
+            alert('User denied the request for Geolocation.');
+            break;
+          case error.POSITION_UNAVAILABLE:
+            alert('Location information is unavailable.');
+            break;
+          case error.TIMEOUT:
+            alert('The request to get user location timed out.');
+            break;
+          case error.UNKNOWN_ERROR:
+            alert('An unknown error occurred.');
+            break;
+        }
+      }
+    </script>
+  </head>
+  <body>
+    <div class="container">
+      <div class="notification is-primary"><strong>Geolocation App</strong> - Enter your location to get coordinates.</div>
+      <h1>Enter Your Location</h1>
+
+      <!-- Form to enter or display latitude and longitude -->
+      <form hx-post="/coordinates/" hx-target="#coordinates" hx-swap="outerHTML" hx-trigger="submit" hx-no-cache="true">
+        <label for="latitude">Latitude (decimal degrees):</label><br />
+        <input type="text" id="latitude" name="latitude" required class="input is-success" /><br /><br />
+
+        <label for="longitude">Longitude (decimal degrees):</label><br />
+        <input type="text" id="longitude" name="longitude" required class="input is-success" /><br /><br />
+
+        <!-- Button to find the user's current location -->
+        <button type="button" onclick="getLocation()" class="button is-success">Get Current Location</button><br /><br />
+
+        <!-- Submit button to send the form -->
+        <input type="submit" value="Submit" class="button is-success" />
+      </form>
+      <div id="coordinates"></div>
+    </div>
+  </body>
+</html>
